@@ -2,13 +2,18 @@ import pandas as pd
 import numpy as np
 from sklearn.preprocessing import StandardScaler
 
+
 class Preprocess:
 
-    def __init__(self):
-        pass
+    def __init__(self, df):
+        self.df = df
 
     def convert_to_num(self, df):
-        self.df = df
+        """
+        :param df: dataframe to be preprocessed
+        :return: a dataframe whose object datatype columns converted to numeric
+        """
+
         try:
             for col in self.df.columns:
                 if self.df[col].dtype == 'O':
@@ -19,8 +24,10 @@ class Preprocess:
             raise Exception()
 
     def scale(self, df):
-        self.df = df
-
+        """
+        :param df: dataframe to be preprocessed
+        :return: preprocessed dataframe whose values are scaled using standardscaler
+        """
         try:
             scalar = StandardScaler()
             X = df.iloc[:, :-1]
@@ -34,12 +41,12 @@ class Preprocess:
             raise Exception()
 
 
-#if __name__ == 'main':
-df = pd.read_csv("C:/Users/Vilas/Documents/Projects/Heart Disease Prediction/Data/heart.csv")
-preprocess = Preprocess()
-df = preprocess.convert_to_num(df)
-print(df.head())
-print(df.dtypes)
-#df = preprocess.scale(df)
-##print(df.head())
+if __name__ == 'main':
+    df = pd.read_csv("../Data/heart.csv")
+    preprocess = Preprocess(df)
+    df = preprocess.convert_to_num(df)
+    print(df.head())
+    print(df.dtypes)
+    # df = preprocess.scale(df)
+    # print(df.head())
 
